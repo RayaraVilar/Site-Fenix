@@ -1,0 +1,826 @@
+/* resetzinhos pra evitar rolagem lateral e “100vw + scrollbar” */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+}
+
+/* NAV por cima, transparente */
+.site-nav,
+header,
+nav {
+    /* ajuste ao seletor que seu nav.php usa */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: transparent;
+    /* totalmente transparente */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+}
+
+/* links do nav sobre vídeo */
+.site-nav a,
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-family: 'Montserrat';
+    font-size: 1.2rem;
+}
+
+/* botões com apenas borda */
+.nav-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .8);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    /* pílula */
+    cursor: pointer;
+}
+
+.nav-btn:hover {
+    border-color: #fff;
+}
+
+.nav-btn:focus {
+    outline: 2px solid rgba(255, 255, 255, .5);
+    outline-offset: 2px;
+}
+
+/* HERO: ocupa a viewport inteira */
+.hero {
+    position: relative;
+    width: 100dvw;
+    /* usa viewport “dinâmica” p/ mobile */
+    height: 100dvh;
+    overflow: hidden;
+    /* corta sobras do vídeo */
+}
+
+/* Vídeo cobrindo tudo sem estourar largura (equivalente a background-cover) */
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* cobre tanto na largura quanto na altura */
+    display: block;
+    /* elimina espaçamento inline */
+}
+
+/* Conteúdo por cima do vídeo */
+.hero__content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 16px;
+}
+
+/* Opcional: leve escurecimento pra contraste do texto */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .15));
+    z-index: 1;
+}
+
+/* layout básico do nav (você já tem parte disso) */
+.site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: transparent;
+    display: flex;
+    gap: 24px;
+    padding: 14px 24px;
+    align-items: center;
+}
+
+.site-nav .brand {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu>li>a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+}
+
+/* botão de dropdown com “só borda” */
+.nav-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .8);
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: 'montserrat';
+    font-size: 1.2rem;
+}
+
+/* container do dropdown */
+/* <li> pai */
+.dropdown {
+    position: relative;
+}
+
+/* submenu */
+.dropdown__menu {
+    position: absolute;
+    top: 100%;
+    /* encosta no botão, sem espaço */
+    left: 0;
+    min-width: 220px;
+    margin: 0;
+    /* <— remova margens que criam “vão” */
+    background: rgba(0, 0, 0, .85);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    padding: 8px;
+    /* use padding dentro do menu, não “margin-top” */
+    display: none;
+    z-index: 1000;
+    /* acima do vídeo/nav */
+}
+
+li {
+    text-decoration: none;
+}
+
+/* abre quando o mouse está no <li> OU quando algum item tem foco
+   (teclado) OU quando aberto por clique (classe .open do JS) */
+.dropdown:hover>.dropdown__menu,
+.dropdown:focus-within>.dropdown__menu,
+.dropdown.open>.dropdown__menu {
+    display: block;
+}
+
+/* opcional: “ponte” invisível de 6px para evitar fechar no limite */
+.dropdown::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 6px;
+    /* pequena área clicável entre botão e menu */
+}
+
+.hero__logo img {
+    width: 1080px;
+    height: 1080px;
+}
+
+/* Logo central sobre o vídeo */
+.hero__logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    /* acima do overlay e do vídeo */
+    display: inline-block;
+    padding: 12px 16px;
+    /* respiro opcional */
+    /* toque de contraste, opcional: */
+    /* background: rgba(0,0,0,.15); backdrop-filter: blur(2px); border-radius: 12px; */
+
+    /* animações em sequência */
+    animation: hero-slide-in 700ms ease-out both,
+        hero-reveal 800ms ease-out 200ms both;
+}
+
+.hero__logo img {
+    display: block;
+    max-width: min(70vw, 520px);
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 2px 16px rgba(0, 0, 0, .35));
+    /* começa “mascarada” para revelar da esquerda → direita */
+    clip-path: inset(0 100% 0 0);
+    /* esconde tudo, mostrando 0% da largura */
+}
+
+/* 1) movimento: vem levemente da esquerda e dá um fade-in */
+@keyframes hero-slide-in {
+    from {
+        transform: translate(calc(-50% - 40px), -50%) scale(.98);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+/* 2) revelação: de esquerda para direita */
+@keyframes hero-reveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    /* 0% visível */
+    to {
+        clip-path: inset(0 0% 0 0);
+    }
+
+    /* 100% visível */
+}
+
+/* respeito a usuários com redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+    .hero__logo {
+        animation: none;
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    .hero__logo img {
+        clip-path: inset(0);
+    }
+}
+
+/* Container: entra e depois some */
+.hero__logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    pointer-events: none;
+    /* não bloqueia cliques no vídeo */
+    /* 1) entra  2) desaparece após um tempo (ajuste o delay) */
+    animation:
+        hero-slide-in 700ms ease-out both,
+        hero-fade-out 700ms ease-in 4s forwards;
+    /* 4s de espera */
+}
+
+/* Imagem: efeito de “revelar” da esquerda → direita */
+.hero__logo img {
+    display: block;
+    max-width: min(70vw, 520px);
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 2px 16px rgba(0, 0, 0, .35));
+    clip-path: inset(0 100% 0 0);
+    animation: hero-reveal 800ms ease-out 200ms both;
+}
+
+/* já tínhamos: */
+@keyframes hero-slide-in {
+    from {
+        transform: translate(calc(-50% - 40px), -50%) scale(.98);
+        opacity: 0;
+    }
+
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes hero-reveal {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
+/* novo: some suavemente */
+@keyframes hero-fade-out {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(.98);
+    }
+}
+
+/* acessibilidade */
+@media (prefers-reduced-motion: reduce) {
+    .hero__logo {
+        animation: none;
+        opacity: 1;
+    }
+
+    .hero__logo img {
+        animation: none;
+        clip-path: inset(0);
+    }
+}
+
+.lang-switch {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.lang-btn {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    border: 1px solid rgba(255, 255, 255, .8);
+    border-radius: 999px;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform .12s ease, border-color .12s ease, opacity .12s ease;
+    color: inherit;
+    /* sem sublinhado/cores de link */
+}
+
+.lang-btn svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.lang-btn:hover {
+    border-color: #fff;
+    transform: translateY(-1px);
+}
+
+.lang-btn:active {
+    transform: translateY(0);
+}
+
+.lang-btn.is-active {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .20) inset;
+    border-color: #fff;
+    opacity: 1;
+}
+
+.lang-btn:not(.is-active) {
+    opacity: .8;
+}
+
+/* acessibilidade no foco teclado */
+.lang-btn:focus {
+    outline: 2px solid rgba(255, 255, 255, .6);
+    outline-offset: 2px;
+}
+
+/* NAV fixo por cima do vídeo, texto branco e z-index alto */
+.site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 24px;
+    background: transparent;
+    color: #fff;
+}
+
+.site-nav .brand {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Menu sempre visível (pode ter sumido por display/gap) */
+.menu {
+    display: flex;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu>li>a {
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 10px;
+}
+
+/* Dropdown (já com hover/focus/click conforme combinamos) */
+.dropdown {
+    position: relative;
+}
+
+.dropdown__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    margin: 0;
+    background: rgba(0, 0, 0, .85);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 12px;
+    padding: 8px;
+    display: none;
+    z-index: 1100;
+}
+
+.dropdown:hover>.dropdown__menu,
+.dropdown:focus-within>.dropdown__menu,
+.dropdown.open>.dropdown__menu {
+    display: block;
+}
+
+.dropdown__menu a {
+    display: block;
+    padding: 10px 12px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+}
+
+.dropdown__menu a:hover {
+    background: rgba(255, 255, 255, .12);
+}
+
+/* Botões com borda (pílula) */
+.nav-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, .85);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* “Botão” de idioma contendo as duas bandeiras */
+.lang-btn-group {
+    gap: 8px;
+}
+
+.lang-btn-group .flag-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    opacity: .85;
+}
+
+.lang-btn-group .flag-link.is-active {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, .25) inset;
+    opacity: 1;
+}
+
+.lang-btn-group .flag-link img {
+    display: block;
+    width: 18px;
+    height: 18px;
+}
+
+.lang-btn-group .lang-sep {
+    opacity: .6;
+}
+
+/* Ajudinhas de visibilidade sobre vídeo claro */
+.site-nav a {
+    color: #fff;
+}
+
+.site-nav,
+.menu>li>a {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .25);
+}
+
+/* opcional */
+
+.brand img {
+    width: 60px;
+    height: auto;
+}
+
+/* --- Section que “pina” a viewport --- */
+.about-pin {
+    position: relative;
+    height: 220vh;
+    /* comprimento do efeito (ajuste) */
+    background: transparent;
+    /* fica sobre o vídeo/onde estiver */
+}
+
+/* elemento fixo enquanto a rolagem acontece dentro da section */
+.about-pin__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* ocupa a viewport inteira */
+    overflow: hidden;
+    /* esconde o card quando sobe */
+}
+
+/* cartão que vai subir */
+.about-card {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 40vh);
+    /* ponto inicial (40vh abaixo do centro) */
+    width: min(900px, 92vw);
+    color: #fff;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, .2);
+    border-radius: 24px;
+    padding: clamp(20px, 4vw, 48px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+}
+
+/* tipografia básica */
+.about-card h2 {
+    font-size: clamp(28px, 4.6vw, 48px);
+    margin: 0 0 .5em;
+}
+
+.about-card p {
+    font-size: clamp(16px, 2.2vw, 18px);
+    line-height: 1.6;
+    margin: .6em 0;
+}
+
+/* acessibilidade: sem animação p/ quem prefere reduzir movimentos */
+@media (prefers-reduced-motion: reduce) {
+    .about-card {
+        transform: translate(-50%, -50%);
+        top: 50%;
+    }
+}
+
+/* A section inteira controla o “tempo” do efeito */
+.about-pin {
+    position: relative;
+    height: 220vh;
+    /* comprimento do efeito (ajuste) */
+    background: #0e0e0e;
+    /* fundo próprio, abaixo do vídeo */
+    color: #fff;
+}
+
+/* Fixa a viewport enquanto rola dentro da section */
+.about-pin__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* ocupa a viewport inteira */
+    overflow: hidden;
+}
+
+/* O bloco que vai “subir” */
+.about-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50vh);
+    /* começa bem abaixo do centro */
+    width: min(900px, 92vw);
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .18);
+    backdrop-filter: blur(6px);
+    border-radius: 24px;
+    padding: clamp(20px, 4vw, 48px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, .35);
+}
+
+.about-card h2 {
+    font-size: clamp(28px, 4.6vw, 48px);
+    margin: 0 0 .5em;
+}
+
+.about-card p {
+    font-size: clamp(16px, 2.2vw, 18px);
+    line-height: 1.6;
+    margin: .6em 0;
+}
+
+/* acessibilidade: sem movimento para quem prefere */
+@media (prefers-reduced-motion: reduce) {
+    .about-card {
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* HERO precisa ter altura e ficar atrás da section */
+.hero {
+    position: relative;
+    width: 100dvw;
+    height: 100dvh;
+    /* mantém o vídeo visível */
+    overflow: hidden;
+    z-index: 0;
+}
+
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* --- Seção tipográfica “pinned”, sem retângulo --- */
+.statement-pin {
+    position: relative;
+    height: 220vh;
+    /* duração do efeito (ajuste) */
+    background: #171717;
+    /* fundo sólido abaixo do vídeo */
+    color: #fff;
+}
+
+.statement-pin__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    /* esconde quando sobe */
+}
+
+/* bloco de texto central; começa no centro da viewport */
+.statement {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -10vh);
+    /* posição inicial (um pouco acima) */
+    width: min(1100px, 92vw);
+    text-align: center;
+    padding: 0 6vw;
+}
+
+/* título grande, em caixa alta, peso forte */
+.statement__title {
+    margin: 0 0 .6em;
+    font-weight: 900;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    font-size: clamp(28px, 6vw, 64px);
+    font-family: 'Montserrat';
+    /* responsivo */
+}
+
+/* subtítulo/lead */
+.statement__lead {
+    margin: 0 0 .6em;
+    font-size: clamp(16px, 2.4vw, 22px);
+    line-height: 1.6;
+    opacity: .92;
+}
+
+/* parágrafo final */
+.statement__desc {
+    margin: 0;
+    font-size: clamp(15px, 2.1vw, 20px);
+    line-height: 1.65;
+    opacity: .88;
+}
+
+/* contraste extra em layouts claros do vídeo acima */
+.statement,
+.statement * {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+}
+
+/* acessibilidade: sem movimento p/ quem prefere */
+@media (prefers-reduced-motion: reduce) {
+    .statement {
+        transform: translate(-50%, -50%);
+        top: 50%;
+    }
+}
+
+/* Fundo quadriculado vermelho + branco atrás do texto */
+.statement-pin {
+    position: relative;
+    height: 220vh;
+    background: #171717;
+    /* base escura */
+    color: #fff;
+
+    /* usado pelo parallax no JS */
+    --bg-shift: 0px;
+}
+
+/* camada 1: quadriculado pequeno */
+.statement-pin::before {
+    content: "";
+    position: absolute;
+    inset: -10vh -10vw;
+    /* expande pra fora p/ não “cortar” nas bordas */
+    z-index: 0;
+    /* atrás do conteúdo */
+    /* tamanho do tile */
+    --size: 64px;
+
+    /* pattern: conic-gradient cria xadrez; 2 camadas defasadas geram vermelho+branco */
+    background:
+        conic-gradient(#e10600 25%, transparent 0 50%, #e10600 0 75%, transparent 0) 0 0 / var(--size) var(--size),
+        conic-gradient(#ffffff 25%, transparent 0 50%, #ffffff 0 75%, transparent 0) calc(var(--size)/2) calc(var(--size)/2) / var(--size) var(--size);
+
+    opacity: .10;
+    /* discreto */
+    transform: translate3d(0, var(--bg-shift), 0);
+}
+
+/* camada 2: quadriculado maior, mais sutil (profundidade) */
+.statement-pin::after {
+    content: "";
+    position: absolute;
+    inset: -10vh -10vw;
+    z-index: 0;
+    --size: 140px;
+    background:
+        conic-gradient(#e10600 25%, transparent 0 50%, #e10600 0 75%, transparent 0) 0 0 / var(--size) var(--size),
+        conic-gradient(#ffffff 25%, transparent 0 50%, #ffffff 0 75%, transparent 0) calc(var(--size)/2) calc(var(--size)/2) / var(--size) var(--size);
+    opacity: .05;
+    transform: translate3d(0, calc(var(--bg-shift) * 0.6), 0);
+    /* parallax mais suave */
+}
+
+/* garante que o bloco de texto fique acima das camadas */
+.statement-pin__sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.statement {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -10vh);
+    width: min(1100px, 92vw);
+    text-align: center;
+    padding: 0 6vw;
+    z-index: 2;
+}
+
+.statement__title {
+    margin: 0 0 .6em;
+    font-weight: 900;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    font-size: clamp(28px, 6vw, 64px);
+}
+
+.statement__lead {
+    margin: 0 0 .6em;
+    font-size: clamp(16px, 2.4vw, 22px);
+    line-height: 1.6;
+    opacity: .92;
+}
+
+.statement__desc {
+    margin: 0;
+    font-size: clamp(15px, 2.1vw, 20px);
+    line-height: 1.65;
+    opacity: .88;
+}
