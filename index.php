@@ -37,24 +37,47 @@ require_once __DIR__ . '/partials/header/nav.php';
 
 </main>
 <section class="statement-pin" id="manifesto">
-  <div class="statement-pin__sticky">
-    <div class="statement">
-      <h2 class="statement__title">
-        Lorem Ipsum
-      </h2>
-      <p class="statement__lead">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nunc non ultricies gravida. Maecenas aliquam blandit felis, in pulvinar urna fermentum id. Curabitur vitae posuere sem, non condimentum risus. Quisque et ipsum eget velit feugiat tincidunt et et arcu. Morbi et diam eu ex consectetur semper. Fusce pellentesque vitae ligula at rhoncus. Aliquam ut dictum tellus, sit amet eleifend ligula. Aliquam luctus porta sapien sit amet iaculis.
+  <!-- background de quadrados, não ocupa espaço -->
+  <div class="statement-bg" aria-hidden="true">
+  <span class="sq sq--red"
+        style="--x:12%; --y:18%; --size:120px; --rot:-8deg;
+               --spin: 18deg; --dur: 7s; --delay: .2s;"></span>
 
+  <span class="sq sq--white"
+        style="--x:90%; --y:24%; --size:90px; --rot:6deg;
+               --spin: 26deg; --dur: 6.5s; --delay: .8s;"></span>
 
-      <p class="statement__desc">
-        Donec et eleifend mauris. Praesent aliquet turpis ac dui varius, ac vulputate sapien rutrum. Nam rhoncus at diam a facilisis. Nam sed augue metus. Morbi consectetur finibus neque et efficitur. Curabitur sed nunc nec nunc dignissim viverra. Donec placerat, erat quis suscipit ornare, arcu quam commodo ex, ornare faucibus risus eros et sem.
-      </p>
+  <span class="sq sq--red"
+        style="--x:28%; --y:88%; --size:72px; --rot:12deg;
+               --spin: 20deg; --dur: 6s; --delay: .4s;"></span>
+</div>
+
+  <!-- texto por cima -->
+  <div class="statement">
+    <h2 class="statement__title">Lorem Ipsum</h2>
+    <p class="statement__lead">
+      
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit nunc non ultricies gravida. Maecenas aliquam blandit felis, in pulvinar urna fermentum id. Curabitur vitae posuere sem, non condimentum risus. Quisque et ipsum eget velit feugiat tincidunt et et arcu. Morbi et diam eu ex consectetur semper. Fusce pellentesque vitae ligula at rhoncus. Aliquam ut dictum tellus, sit amet eleifend ligula. Aliquam luctus porta sapien sit amet iaculis.
+    </p>
+    <p class="statement__desc">
+Donec et eleifend mauris. Praesent aliquet turpis ac dui varius, ac vulputate sapien rutrum. Nam rhoncus at diam a facilisis. Nam sed augue metus. Morbi consectetur finibus neque et efficitur. Curabitur sed nunc nec nunc dignissim viverra. Donec placerat, erat quis suscipit ornare, arcu quam commodo ex, ornare faucibus risus eros et sem.
+    </p>
+  </div>
+</section>
+
+<section class="logo-reveal" id="logo-reveal">
+  <div class="logo-reveal__sticky">
+    <div class="logo-reveal__frame">
+      <img class="logo-reveal__img" src="assets/img/reveal-bg.jpg" alt="Projeto Fênix">
+
     </div>
   </div>
 </section>
 
 
-  <script src="/assets/js/main.js"></script>
+
+
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
 
